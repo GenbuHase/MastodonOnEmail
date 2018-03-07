@@ -48,6 +48,8 @@ function run () {
       var mode = (subject[1] || "").toUpperCase(),
           instanceUrl = (subject[2] || ""),
           tootVisibility = (subject[3] || 0);
+
+      var mstdn = new Mstdn(instanceUrl, UserProperties.getProperty(instanceUrl));
       
       if (thread.isUnread()) {
         var mails = thread.getMessages();
@@ -61,12 +63,12 @@ function run () {
               default:
               case ":TOOT":
                 var tootContent = mail.getPlainBody();
-                Mstdn.toot(instanceUrl, UserProperties.getProperty(instanceUrl), tootContent, Mstdn.VISIBILITY[tootVisibility]);
+                mstdn.toot(tootContent, Mstdn.VISIBILITY[tootVisibility]);
                 
                 break;
                 
               case ":NOTIFY":
-                Mstdn.sendNotifyInfo(instanceUrl, TOKENS[instanceUrl], from);
+                mstdn.sendNotificationInfo(from);
                 break;
             }
             
