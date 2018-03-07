@@ -22,7 +22,7 @@ It is espicially useful for users who don't have any smartphones.
 Please follow the instructions if you want to use.
 1.	Copy all files to your GAS project
 2.	Launch `scheduleInit()`
-3.	Make me busy by sending e-mails!
+3.	Make me busy by sending e-mails!(See [Format List](#format-list))
 
 
 ## Format List
@@ -46,7 +46,7 @@ These are examples of format-list.
 || `3` ... Direct Message |
 | MoE:Toot | Equals to `Base Format` |
 | MoE:Toot<`{:privacy}`> | Equals to `<{:privacy}>` |
-| MoE:Notify | Requests to MoE to send notifies |
+| MoE:Notify | Requests to MoE to send notifications, which are only mentions |
 
 
 ## Author
