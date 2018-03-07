@@ -45,10 +45,10 @@ var Mstdn = (function () {
 
     getMentions: {
       value: function () {
-        var notifies = this.getNotifications();
+        var notifications = this.getNotifications();
         
-        return notifies.filter(function (notify) {
-          return notify.type == "mention";
+        return notifications.filter(function (notification) {
+          return notification.type == "mention";
         });
       }
     },
