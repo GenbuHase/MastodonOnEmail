@@ -73,4 +73,4 @@ These are examples of format-list.
 
 
 ## Other Languages
-* [Japanese | 日本語](https://github.com/GenbuHase/MastodonOnEmail/blob/master/README_ja.md)
+* [Japanese | 日本語](https://github.com/GenbuHase/MastodonOnEmail/blob/feature/v1.1/notify/README_ja.md)
