@@ -27,11 +27,20 @@ Please follow the instructions if you want to use.
 
 
 ## Token Settings
-1.	Open "Project Properties" from "File" tab<br />
-	![Where "Project Properties" is](images/001.png)
+1.	Open "Applications" in settings(https://`{:instanceUrl}`/settings/applications)<br />
+	![Where "Applications" is](images/001.png)
 
-2.	Write both the instance and the token to fields in "User Properties" tab<br />
-	![Where "User Properties" is](images/002.png)
+2.	Generate a token with these settings<br />
+	... Application's name: Mastodon on Email<br />
+	... Application's website: https://genbuhase.github.io/<br />
+	... Application's permissions: read, write, follow<br />
+	![How you'll set properties](images/002.png)
+
+3.	Open "Project Properties" from "File" tab<br />
+	![Where "Project Properties" is](images/003.png)
+
+4.	Write both the instance and the token to fields in "User Properties" tab<br />
+	![Where "User Properties" is](images/004.png)
 
 
 ## Format List
