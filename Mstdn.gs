@@ -21,7 +21,7 @@ var Mstdn = (function () {
 
         if (params) {
           for (var param in params) {
-            paramStrs.push(param + "=" + params[param]);
+            paramStrs.push(params[param][0] + "=" + params[param][1]);
           }
         }
         
@@ -47,11 +47,11 @@ var Mstdn = (function () {
 
     getNotifications: {
       value: function () {
-        return JSON.parse(this.get("api/v1/notifications", {
-          "exclude_types[]": "favourite",
-          "exclude_types[]": "reblog",
-          "exclude_types[]": "follow",
-        }).getContentText());
+        return JSON.parse(this.get("api/v1/notifications", [
+          ["exclude_types[]", "favourite"],
+          ["exclude_types[]", "reblog"],
+          ["exclude_types[]", "follow"],
+        ]).getContentText());
       }
     },
 
