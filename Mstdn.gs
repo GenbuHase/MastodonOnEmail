@@ -47,7 +47,7 @@ var Mstdn = (function () {
 
     getNotifications: {
       value: function () {
-        return JSON.parse(this.get("api/v1/notifications"{
+        return JSON.parse(this.get("api/v1/notifications", {
           "exclude_types[]": "favourite",
           "exclude_types[]": "reblog",
           "exclude_types[]": "follow",
