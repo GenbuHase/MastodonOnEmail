@@ -1,14 +1,16 @@
 var Mstdn = (function () {
-  function Mstdn (instance, token) {
+  function Mstdn (instance) {
     this.instance = instance,
-    this.token = token;
+    this.token = UserProperties.getProperty(instance);
   };
 
   Mstdn.prototype = Object.create(null, {
     constructor: { value: Mstdn },
 
     get: {
-      value: function (apiUrl) {
+      value: function (apiUrl, params) {
+        var paramStrs = [];
+
         var option = {
           method: "GET",
           
@@ -16,8 +18,14 @@ var Mstdn = (function () {
             "Authorization": "Bearer " + this.token
           }
         }
+
+        if (params) {
+          for (var param in params) {
+            paramStrs.push(params[param][0] + "=" + params[param][1]);
+          }
+        }
         
-        return UrlFetchApp.fetch("https://" + this.instance + "/" + apiUrl, option);
+        return UrlFetchApp.fetch("https://" + this.instance + "/" + apiUrl + "?" + paramStrs.join("&"), option);
       }
     },
 
@@ -39,26 +47,20 @@ var Mstdn = (function () {
 
     getNotifications: {
       value: function () {
-        return JSON.parse(this.get("api/v1/notifications").getContentText());
-      }
-    },
-
-    getMentions: {
-      value: function () {
-        var notifications = this.getNotifications();
-        
-        return notifications.filter(function (notification) {
-          return notification.type == "mention";
-        });
+        return JSON.parse(this.get("api/v1/notifications", [
+          ["exclude_types[]", "favourite"],
+          ["exclude_types[]", "reblog"],
+          ["exclude_types[]", "follow"],
+        ]).getContentText());
       }
     },
 
     sendNotificationInfo: {
       value: function (address) {
         var messages = [];
-        var mentions = this.getMentions();
+        var notifications = this.getNotifications();
         
-        mentions.forEach(function (mention) {
+        notifications.forEach(function (mention) {
           messages.push([
             "<" + new Date(mention.created_at).toLocaleString() + "> " + mention.account.acct,
             Mstdn.parseHtml(mention.status.content)

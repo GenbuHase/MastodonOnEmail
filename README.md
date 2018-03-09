@@ -21,8 +21,26 @@ It is espicially useful for users who don't have any smartphones.
 ## Usage
 Please follow the instructions if you want to use.
 1.	Copy all files to your GAS project
-2.	Launch `scheduleInit()`
-3.	Make me busy by sending e-mails!(See [Format List](#format-list))
+2.	Prepare any tokens to handle(See [Token Settings](#token-settings))
+3.	Launch `scheduleInit()`
+4.	Make me busy by sending e-mails!(See [Format List](#format-list) & [Magic List](#magic-list))
+
+
+## Token Settings
+1.	Open "Applications" in settings(`https://{:instanceUrl}/settings/applications`)<br />
+	![Where "Applications" is](images/001.png)
+
+2.	Generate a token with these settings<br />
+	... Application's name: `Mastodon on Email`<br />
+	... Application's website: `https://genbuhase.github.io/`<br />
+	... Application's permissions: `read, write, follow`<br />
+	![How you'll set properties](images/002.png)
+
+3.	Open "Project Properties" from "File" tab<br />
+	![Where "Project Properties" is](images/003.png)
+
+4.	Write both the instance and the token to fields in "User Properties" tab<br />
+	![Where "User Properties" is](images/004.png)
 
 
 ## Format List
@@ -49,9 +67,19 @@ These are examples of format-list.
 | MoE:Notify | Requests to MoE to send notifications, which are only mentions |
 
 
+## Magic List
+| Format of magic | Description |
+|:----------|:----------|
+| [CW \| `{:CWContent}`] | Toots with warning by the text |
+
+
 ## Author
-[GenbuHase](https://github.com/GenbuHase)
+[Genbu Hase](https://github.com/GenbuHase)
 
 
 ## License
 [MIT License](https://github.com/GenbuHase/MastodonOnEmail/blob/master/LICENSE)
+
+
+## Other Languages
+* [Japanese | 日本語](https://github.com/GenbuHase/MastodonOnEmail/blob/master/README_ja.md)
