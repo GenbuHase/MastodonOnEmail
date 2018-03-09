@@ -1,7 +1,7 @@
 var Mstdn = (function () {
-  function Mstdn (instance, token) {
+  function Mstdn (instance) {
     this.instance = instance,
-    this.token = token;
+    this.token = UserProperties.getProperty(instance);
   };
 
   Mstdn.prototype = Object.create(null, {
@@ -47,24 +47,20 @@ var Mstdn = (function () {
 
     getNotifications: {
       value: function () {
-        return JSON.parse(this.get("api/v1/notifications").getContentText());
-      }
-    },
-
-    getMentions: {
-      value: function () {
-        return JSON.parse(this.get("api/v1/notifications", {
-          "exclude_types[]": "favourite"
+        return JSON.parse(this.get("api/v1/notifications"{
+          "exclude_types[]": "favourite",
+          "exclude_types[]": "reblog",
+          "exclude_types[]": "follow",
         }).getContentText());
       }
     },
 
-    sendNotificationInfo: {
+    sendNotification: {
       value: function (address) {
         var messages = [];
-        var mentions = this.getMentions();
+        var notifications = this.getNotifications();
         
-        mentions.forEach(function (mention) {
+        notifications.forEach(function (mention) {
           messages.push([
             "<" + new Date(mention.created_at).toLocaleString() + "> " + mention.account.acct,
             Mstdn.parseHtml(mention.status.content)

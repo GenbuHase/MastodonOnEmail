@@ -49,7 +49,7 @@ function run () {
           instanceUrl = (subject[2] || ""),
           tootVisibility = (subject[3] || 0);
 
-      var mstdn = new Mstdn(instanceUrl, UserProperties.getProperty(instanceUrl));
+      var mstdn = new Mstdn(instanceUrl);
       
       if (thread.isUnread()) {
         var mails = thread.getMessages();
