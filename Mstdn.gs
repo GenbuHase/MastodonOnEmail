@@ -55,7 +55,7 @@ var Mstdn = (function () {
       }
     },
 
-    sendNotification: {
+    sendNotificationInfo: {
       value: function (address) {
         var messages = [];
         var notifications = this.getNotifications();
