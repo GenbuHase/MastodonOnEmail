@@ -27,13 +27,13 @@ Please follow the instructions if you want to use.
 
 
 ## Token Settings
-1.	Open "Applications" in settings(https://`{:instanceUrl}`/settings/applications)<br />
+1.	Open "Applications" in settings(`https://{:instanceUrl}/settings/applications`)<br />
 	![Where "Applications" is](images/001.png)
 
 2.	Generate a token with these settings<br />
-	... Application's name: Mastodon on Email<br />
-	... Application's website: https://genbuhase.github.io/<br />
-	... Application's permissions: read, write, follow<br />
+	... Application's name: `Mastodon on Email`<br />
+	... Application's website: `https://genbuhase.github.io/`<br />
+	... Application's permissions: `read, write, follow`<br />
 	![How you'll set properties](images/002.png)
 
 3.	Open "Project Properties" from "File" tab<br />
