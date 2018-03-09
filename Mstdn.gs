@@ -8,7 +8,9 @@ var Mstdn = (function () {
     constructor: { value: Mstdn },
 
     get: {
-      value: function (apiUrl) {
+      value: function (apiUrl, params) {
+        var paramStrs = [];
+
         var option = {
           method: "GET",
           
@@ -16,8 +18,14 @@ var Mstdn = (function () {
             "Authorization": "Bearer " + this.token
           }
         }
+
+        if (params) {
+          for (var param in params) {
+            paramStrs.push(param + "=" + params[param]);
+          }
+        }
         
-        return UrlFetchApp.fetch("https://" + this.instance + "/" + apiUrl, option);
+        return UrlFetchApp.fetch("https://" + this.instance + "/" + apiUrl + "?" + paramStrs.join("&"), option);
       }
     },
 
@@ -45,11 +53,9 @@ var Mstdn = (function () {
 
     getMentions: {
       value: function () {
-        var notifications = this.getNotifications();
-        
-        return notifications.filter(function (notification) {
-          return notification.type == "mention";
-        });
+        return JSON.parse(this.get("api/v1/notifications", {
+          "exclude_types[]": "favourite"
+        }).getContentText());
       }
     },
 
