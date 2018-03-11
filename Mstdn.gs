@@ -75,7 +75,7 @@ var Mstdn = (function () {
     toot: {
       value: function (content, visibility) {
         var CW = content.match(Mstdn.PARSER.CW) || [];
-        var harukins = content.match(new RegExp(Mstdn.PARSER.HARUKIN, "g")) || [];
+        var harukins = content.match(new RegExp(Mstdn.PARSER.HARUKIN.toString().slice(1, -1), "g")) || [];
         
         content = content.replace(CW[0], "");
 
