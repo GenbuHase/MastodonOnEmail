@@ -80,7 +80,7 @@ var Mstdn = (function () {
         content = content.replace(CW[0], "");
 
         for (var i = 0; i < harukins.length; i++) {
-          var harukin = harukins.match(Mstdn.PARSER.HARUKIN);
+          var harukin = harukins[i].match(Mstdn.PARSER.HARUKIN);
           content = content.replace(harukin[0], ":harukin:​".repeat(parseInt(harukin[1])));
         }
         
