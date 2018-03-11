@@ -106,7 +106,7 @@ var Mstdn = (function () {
           SUBJECT: /MoE(:[^@<>]+(?=@))?@([^<>]*)(?:<(.)>)?/,
           CW: /\[CW ?\| ?(.*)\]\r?\n/,
 
-          HARUKIN: /\[harukin ?\| ?([^\]]*)\]/
+          HARUKIN: /\[(?:[hH]arukin|はるきん) ?\| ?([^\]]*)\]/
         }
       }
     },
