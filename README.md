@@ -71,6 +71,8 @@ These are examples of format-list.
 | Format of magic | Description |
 |:----------|:----------|
 | [CW \| `{:CWContent}`] | Toots with warning by the text |
+| [Harukin \| `{:amount}` | Replaces with Harukins |
+| [はるきん \| `{:amount}` | Equals to `[Harukin \| {:amount}]` |
 
 
 ## Author
