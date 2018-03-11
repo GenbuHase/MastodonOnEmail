@@ -84,4 +84,4 @@ MoEを使えば、Eメールだけでトゥートが出来るようになりま�
 
 
 ## Other Languages
-* [英語 | English](https://github.com/GenbuHase/MastodonOnEmail/blob/master/README.md)
+* [英語 | English](/README.md)
