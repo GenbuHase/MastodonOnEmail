@@ -1,4 +1,4 @@
-var WPM = 6;
+var WPM = 2;
 
 function scheduleInit () {
   var scheduleAt = new Date();

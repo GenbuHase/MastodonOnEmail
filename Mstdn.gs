@@ -75,8 +75,14 @@ var Mstdn = (function () {
     toot: {
       value: function (content, visibility) {
         var CW = content.match(Mstdn.PARSER.CW) || [];
+        var harukins = content.match(new RegExp(Mstdn.PARSER.HARUKIN.toString().slice(1, -1), "g")) || [];
         
         content = content.replace(CW[0], "");
+
+        for (var i = 0; i < harukins.length; i++) {
+          var harukin = harukins[i].match(Mstdn.PARSER.HARUKIN);
+          content = content.replace(harukin[0], ":harukin: ".repeat(parseInt(harukin[1])));
+        }
         
         this.post("api/v1/statuses", {
           status: [
@@ -98,7 +104,9 @@ var Mstdn = (function () {
       get: function () {
         return {
           SUBJECT: /MoE(:[^@<>]+(?=@))?@([^<>]*)(?:<(.)>)?/,
-          CW: /\[CW ?\| ?(.*)\]\r?\n/
+          CW: /\[CW ?\| ?(.*)\]\r?\n/,
+
+          HARUKIN: /\[(?:[hH]arukin|はるきん) ?\| ?([^\]]*)\]/
         }
       }
     },
