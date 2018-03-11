@@ -81,7 +81,7 @@ var Mstdn = (function () {
 
         for (var i = 0; i < harukins.length; i++) {
           var harukin = harukins[i].match(Mstdn.PARSER.HARUKIN);
-          content = content.replace(harukin[0], ":harukin:​".repeat(parseInt(harukin[1])));
+          content = content.replace(harukin[0], ":harukin: ".repeat(parseInt(harukin[1])));
         }
         
         this.post("api/v1/statuses", {
