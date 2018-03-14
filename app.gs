@@ -50,7 +50,7 @@ function _scheduleClear () {
 
 
 function run () {
-  var threads = GmailApp.search(Mstdn.PARSER.SUBJECT, 0, 50);
+  var threads = GmailApp.search('is:unread subject:"MoE"', 0, 50);
   
   for (var i = 0; i < threads.length; i++) {
     var thread = threads[i];
@@ -60,33 +60,30 @@ function run () {
       var mode = (subject[1] || "").toUpperCase(),
           instanceUrl = (subject[2] || ""),
           tootVisibility = (subject[3] || 0);
-
-      var mstdn = new Mstdn(instanceUrl);
       
-      if (thread.isUnread()) {
-        var mails = thread.getMessages();
+      var mstdn = new Mstdn(instanceUrl);
+      var mails = thread.getMessages();
+      
+      for (var i = 0; i < mails.length; i++) {
+        var mail = mails[i];
+        var from = mail.getFrom();
         
-        for (var i = 0; i < mails.length; i++) {
-          var mail = mails[i];
-          var from = mail.getFrom();
-          
-          if (mail.isUnread()) {
-            switch (mode) {
-              default:
-              case ":TOOT":
-                var tootContent = mail.getPlainBody();
-                mstdn.toot(tootContent, Mstdn.VISIBILITY[tootVisibility]);
-                
-                break;
-                
-              case ":NOTIFY":
-                mstdn.sendNotificationInfo(from);
-                break;
-            }
-            
-            mail.markRead();
-            mail.moveToTrash();
+        if (mail.isUnread()) {
+          switch (mode) {
+            default:
+            case ":TOOT":
+              var tootContent = mail.getPlainBody();
+              mstdn.toot(tootContent, Mstdn.VISIBILITY[tootVisibility]);
+              
+              break;
+              
+            case ":NOTIFY":
+              mstdn.sendNotificationInfo(from);
+              break;
           }
+          
+          mail.markRead();
+          mail.moveToTrash();
         }
       }
     }
