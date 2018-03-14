@@ -18,6 +18,18 @@ function scheduleInit () {
   }
 }
 
+function scheduleEnd () {
+  var triggers = ScriptApp.getProjectTriggers();
+  
+  for (var i = 0; i < triggers.length; i++) {
+    switch (triggers[i].getHandlerFunction()) {
+      case "run":
+        ScriptApp.deleteTrigger(triggers[i]);
+        break;
+    }
+  }
+}
+
 function _schedule () {
   ScriptApp.newTrigger("run").timeBased().everyMinutes(1).create();
 }
