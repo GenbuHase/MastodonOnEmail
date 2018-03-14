@@ -50,7 +50,7 @@ function _scheduleClear () {
 
 
 function run () {
-  var threads = GmailApp.search('is:unread subject:"MoE"', 0, 50);
+  var threads = GmailApp.search("-in:(trash) is:(unread) subject:(" + MoE + ")", 0, 50);
   
   for (var i = 0; i < threads.length; i++) {
     var thread = threads[i];
