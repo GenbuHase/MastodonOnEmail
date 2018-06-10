@@ -117,7 +117,7 @@ var Mstdn = (function () {
     PARSER: {
       get: function () {
         return {
-          SUBJECT: /MoE(:[^@<>]+(?=@))?@([^<>]*)(?:<(\w+)>)?/,
+          SUBJECT: /MoE(:[^@<>]+(?=@))?@([^<>]*)(?:<(.+)>)?/,
           CW: /\[CW ?\| ?(.*)\]\r?\n/,
 
           HARUKIN: /\[(?:[hH]arukin|はるきん) ?\| ?([^\]]*)\]/
