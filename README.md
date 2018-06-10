@@ -2,6 +2,10 @@
 A tool for enjoying Mastodon on Email
 
 
+## Languages
+* [Japanese | 日本語](/README_ja.md)
+
+
 ## Description
 MoE helps you toot with only e-mail.<br />
 It is espicially useful for users who don't have any smartphones.
@@ -27,7 +31,7 @@ Please follow the instructions if you want to use.
 
 
 ## Token Settings
-1.	Open "Applications" in settings(`https://{:instanceUrl}/settings/applications`)<br />
+1.	Open "Applications" in settings(`https://{:instance}/settings/applications`)<br />
 	![Where "Applications" is](images/001.png)
 
 2.	Generate a token with these settings<br />
@@ -44,15 +48,15 @@ Please follow the instructions if you want to use.
 
 
 ## Format List
-A base format of MoE is `MoE@{:instanceUrl}`.
-> `instanceUrl` ... An instance you've connected with MoE
+A base format of MoE is `MoE@{:instance}`.
+> `{:instance}` ... An instance you've connected with MoE
 
 These are examples of format-list.
-> `MoE:Toot` ... Equals to `MoE:Toot@{:instanceUrl}`
+> `MoE:Toot` ... Equals to `MoE:Toot@{:instance}`
 > 
-> `<1>` ... Equals to `MoE@{:instanceUrl}<1>`
+> `<1>` ... Equals to `MoE@{:instance}<1>`
 > 
-> `MoE:Toot<1>` ... Equals to `MoE:Toot@{:instanceUrl}<1>`
+> `MoE:Toot<1>` ... Equals to `MoE:Toot@{:instance}<1>`
 
 | Format of subject | Description |
 |:----------|:----------|
@@ -62,6 +66,7 @@ These are examples of format-list.
 || `1` ... Unlisted |
 || `2` ... Private |
 || `3` ... Direct Message |
+|| `Others(public \| unlisted \| ...)` ... Provided privacy |
 | MoE:Toot | Equals to `Base Format` |
 | MoE:Toot<`{:privacy}`> | Equals to `<{:privacy}>` |
 | MoE:Notify | Requests to MoE to send notifications, which are only mentions |
@@ -71,17 +76,14 @@ These are examples of format-list.
 | Format of magic | Description |
 |:----------|:----------|
 | [CW \| `{:CWContent}`] | Toots with warning by the text |
-| [Harukin \| `{:amount}`] | Replaces with Harukins |
-| [はるきん \| `{:amount}`] | Equals to `[Harukin \| {:amount}]` |
 
 
 ## Author
-[Genbu Hase](https://github.com/GenbuHase)
+* Mastodon
+  * [ProgrammerGenboo@itabashi.0j0.jp](https://itabashi.0j0.jp/@ProgrammerGenboo)
+  * [ProgrammerGenboo@knzk.me](https://knzk.me/@ProgrammerGenboo)
+* [Genbu Hase(Github)](https://github.com/GenbuHase)
 
 
 ## License
-[MIT License](https://github.com/GenbuHase/MastodonOnEmail/blob/master/LICENSE)
-
-
-## Other Languages
-* [Japanese | 日本語](https://github.com/GenbuHase/MastodonOnEmail/blob/master/README_ja.md)
+[MIT License](/LICENSE)
