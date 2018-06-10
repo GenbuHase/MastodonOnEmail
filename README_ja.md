@@ -2,6 +2,10 @@
 Eメールで楽しむMastodonライフ
 
 
+## 言語
+* [英語 | English](/README.md)
+
+
 ## 概要
 MoEを使えば、Eメールだけでトゥートが出来るようになります。<br />
 特にガラケーをお使いの方々にお勧めです。
@@ -27,7 +31,7 @@ MoEを使えば、Eメールだけでトゥートが出来るようになりま�
 
 
 ## トークン設定
-1.	設定の[開発]内にある[アプリ]を開く(`https://{:instanceUrl}/settings/applications`)<br />
+1.	設定の[開発]内にある[アプリ]を開く(`https://{:instance}/settings/applications`)<br />
 	![アプリケーション設定](images/001.png)
 
 2.	以下の設定でトークンを生成する<br />
@@ -44,15 +48,15 @@ MoEを使えば、Eメールだけでトゥートが出来るようになりま�
 
 
 ## フォーマット表
-フォーマットベースは`MoE@{:instanceUrl}`です。
-> `instanceUrl` ... トゥートするアカウントのインスタンス
+フォーマットベースは`MoE@{:instance}`です。
+> `{:instance}` ... トゥートするアカウントのインスタンス
 
 フォーマットの例は以下の通りです。
-> `MoE:Toot` ... `MoE:Toot@{:instanceUrl}`を示す
+> `MoE:Toot` ... `MoE:Toot@{:instance}`を示す
 > 
-> `<1>` ... `MoE@{:instanceUrl}<1>`を示す
+> `<1>` ... `MoE@{:instance}<1>`を示す
 > 
-> `MoE:Toot<1>` ... `MoE:Toot@{:instanceUrl}<1>`を示す
+> `MoE:Toot<1>` ... `MoE:Toot@{:instance}<1>`を示す
 
 | 件名のフォーマット | 概要 |
 |:----------|:----------|
@@ -62,6 +66,7 @@ MoEを使えば、Eメールだけでトゥートが出来るようになりま�
 || `1` ... 未収載 |
 || `2` ... 非公開 |
 || `3` ... ダイレクト |
+|| `その他(public \| unlisted \| ...)` ... 指定された公開範囲 |
 | MoE:Toot | `フォーマットベース`と同機能 |
 | MoE:Toot<`{:privacy}`> | `<{:privacy}>`と同機能 |
 | MoE:Notify | 直近15件のメンション通知を返します |
@@ -76,12 +81,11 @@ MoEを使えば、Eメールだけでトゥートが出来るようになりま�
 
 
 ## 作者
-[Genbu Hase](https://github.com/GenbuHase)
+* Mastodon
+  * [ProgrammerGenboo@itabashi.0j0.jp](https://itabashi.0j0.jp/@ProgrammerGenboo)
+  * [ProgrammerGenboo@knzk.me](https://knzk.me/@ProgrammerGenboo)
+* [Genbu Hase(Github)](https://github.com/GenbuHase)
 
 
 ## ライセンス
-[MIT License](https://github.com/GenbuHase/MastodonOnEmail/blob/master/LICENSE)
-
-
-## Other Languages
-* [英語 | English](/README.md)
+[MIT License](/LICENSE)

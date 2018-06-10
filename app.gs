@@ -21,13 +21,13 @@ function scheduleInit () {
 function scheduleEnd () {
   var triggers = ScriptApp.getProjectTriggers();
   
-  for (var i = 0; i < triggers.length; i++) {
-    switch (triggers[i].getHandlerFunction()) {
+  triggers.forEach(function (trigger) {
+    switch (trigger.getHandlerFunction()) {
       case "run":
-        ScriptApp.deleteTrigger(triggers[i]);
+        ScriptApp.deleteTrigger(trigger);
         break;
     }
-  }
+  });
 }
 
 function _schedule () {
@@ -37,14 +37,14 @@ function _schedule () {
 function _scheduleClear () {
   var triggers = ScriptApp.getProjectTriggers();
   
-  for (var i = 0; i < triggers.length; i++) {
-    switch (triggers[i].getHandlerFunction()) {
+  triggers.forEach(function (trigger) {
+    switch (trigger.getHandlerFunction()) {
       case "_schedule":
       case "_scheduleClear":
-        ScriptApp.deleteTrigger(triggers[i]);
+        ScriptApp.deleteTrigger(trigger);
         break;
     }
-  }
+  });
 }
 
 
@@ -52,20 +52,18 @@ function _scheduleClear () {
 function run () {
   var threads = GmailApp.search("-in:(trash) is:(unread) subject:(" + Mstdn.PARSER.SUBJECT + ")", 0, 50);
   
-  for (var i = 0; i < threads.length; i++) {
-    var thread = threads[i];
+  threads.forEach(function (thread) {
     var subject = thread.getFirstMessageSubject().match(Mstdn.PARSER.SUBJECT);
     
     if (subject) {
-      var mode = (subject[1] || "").toUpperCase(),
-          instanceUrl = (subject[2] || ""),
-          tootVisibility = (subject[3] || 0);
+      var mode = (subject[1] || "").toUpperCase();
+      var instance = (subject[2] || "");
+      var visibility = (subject[3] || "public");
       
-      var mstdn = new Mstdn(instanceUrl);
+      var mstdn = new Mstdn(instance);
       var mails = thread.getMessages();
-      
-      for (var i = 0; i < mails.length; i++) {
-        var mail = mails[i];
+
+      mails.forEach(function (mail) {
         var from = mail.getFrom();
         
         if (mail.isUnread()) {
@@ -73,7 +71,7 @@ function run () {
             default:
             case ":TOOT":
               var tootContent = mail.getPlainBody();
-              mstdn.toot(tootContent, Mstdn.VISIBILITY[tootVisibility]);
+              mstdn.toot(tootContent, visibility.getClassName() === "Number" ? Mstdn.VISIBILITY[visibility] : visibility);
               
               break;
               
@@ -85,7 +83,7 @@ function run () {
           mail.markRead();
           mail.moveToTrash();
         }
-      }
+      });
     }
-  }
+  });
 }
