@@ -95,7 +95,7 @@ var Mstdn = (function () {
 
         emojis.forEach(function (emoji) {
           emoji = emoji.match(Mstdn.PARSER.EMOJI);
-          content = content.replace(emoji[0], (emoji[1] + "​").repeat(parseInt(emoji[2])));
+          content = content.replace(emoji[0], (emoji[1] + " ").repeat(parseInt(emoji[2])));
         });
         
         this.post("api/v1/statuses", {
