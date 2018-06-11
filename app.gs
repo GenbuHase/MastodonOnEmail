@@ -57,8 +57,8 @@ function run () {
     
     if (subject) {
       var mode = (subject[1] || "").toUpperCase();
-      var instance = (subject[2] || "");
-      var visibility = (subject[3] || "public");
+      var instance = subject[2] || "";
+      var visibility = subject[3] ? (parseInt(subject[3]).toString() === "NaN" ? subject[3] : Mstdn.VISIBILITY[subject[3]]) : "public";
       
       var mstdn = new Mstdn(instance);
       var mails = thread.getMessages();
@@ -71,7 +71,7 @@ function run () {
             default:
             case ":TOOT":
               var tootContent = mail.getPlainBody();
-              mstdn.toot(tootContent, visibility.getClassName() === "Number" ? Mstdn.VISIBILITY[visibility] : visibility);
+              mstdn.toot(tootContent, visibility);
               
               break;
               

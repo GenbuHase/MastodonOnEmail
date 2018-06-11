@@ -3,7 +3,7 @@ A tool for enjoying Mastodon on Email
 
 
 ## Languages
-* [Japanese | 日本語](/README_ja.md)
+* [Japanese | 日本語](/README[Japanese].md)
 
 
 ## Description
@@ -69,13 +69,14 @@ These are examples of format-list.
 || `Others(public \| unlisted \| ...)` ... Provided privacy |
 | MoE:Toot | Equals to `Base Format` |
 | MoE:Toot<`{:privacy}`> | Equals to `<{:privacy}>` |
-| MoE:Notify | Requests to MoE to send notifications, which are only mentions |
+| MoE:Notify | Notify latest 15 notifications, which are only mentions |
 
 
 ## Magic List
 | Format of magic | Description |
 |:----------|:----------|
 | [CW \| `{:CWContent}`] | Toots with warning by the text |
+| [`{:emojiCode}` \| `{:quantity}`] | Replaces with `quantity` pieces of an emoji defined as `emojiCode` |
 
 
 ## Author

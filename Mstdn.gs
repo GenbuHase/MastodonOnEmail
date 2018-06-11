@@ -89,7 +89,14 @@ var Mstdn = (function () {
        */
       value: function (content, visibility) {
         var CW = content.match(Mstdn.PARSER.CW) || [];
+        var emojis = content.match(new RegExp(Mstdn.PARSER.EMOJI.source, "ig")) || [];
+
         content = content.replace(CW[0], "");
+
+        emojis.forEach(function (emoji) {
+          emoji = emoji.match(Mstdn.PARSER.EMOJI);
+          content = content.replace(emoji[0], (emoji[1] + " ").repeat(parseInt(emoji[2])));
+        });
         
         this.post("api/v1/statuses", {
           status: [
@@ -111,7 +118,9 @@ var Mstdn = (function () {
       get: function () {
         return {
           SUBJECT: /MoE(:[^@<>]+(?=@))?@([^<>]*)(?:<(.+)>)?/,
-          CW: /\[CW ?\| ?(.*)\]\r?\n/
+
+          CW: /\[CW ?\| ?(.+)\]\r?\n/i,
+          EMOJI: /\[(:[^:]+:) ?\| ?([^\]]+)\]/i
         };
       }
     },
