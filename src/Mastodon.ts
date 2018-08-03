@@ -23,7 +23,8 @@ class Mastodon {
 	post (apiUrl: string, payload: any): GoogleAppsScript.URL_Fetch.HTTPResponse {
 		const option: object = {
 			method: "POST",
-			headers: { Authorization: `Bearer ${this.token}` }
+			headers: { Authorization: `Bearer ${this.token}` },
+			payload
 		};
 
 		return UrlFetchApp.fetch(`https://${this.instance}/${apiUrl}`, option);
