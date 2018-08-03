@@ -17,6 +17,15 @@ class Mastodon {
 		const paramStrs: Array<string> = [];
 		for (const param of params) paramStrs.push(`${param[0]}=${param[1]}`);
 
-		return UrlFetchApp.fetch(`https://${this.instance}/${apiUrl}${params.length ? `?${paramStrs.join("&")}`: ""}`);
+		return UrlFetchApp.fetch(`https://${this.instance}/${apiUrl}${params.length ? `?${paramStrs.join("&")}`: ""}`, option);
+	}
+
+	post (apiUrl: string, payload: any): GoogleAppsScript.URL_Fetch.HTTPResponse {
+		const option: object = {
+			method: "POST",
+			headers: { Authorization: `Bearer ${this.token}` }
+		};
+
+		return UrlFetchApp.fetch(`https://${this.instance}/${apiUrl}`, option);
 	}
 }
