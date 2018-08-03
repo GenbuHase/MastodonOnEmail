@@ -32,19 +32,19 @@ MoEを使えば、Eメールだけでトゥートが出来るようになりま�
 
 ## トークン設定
 1.	設定の[開発]内にある[アプリ]を開く(`https://{:instance}/settings/applications`)<br />
-	![アプリケーション設定](images/001.png)
+	![アプリケーション設定](assets/images/001.png)
 
 2.	以下の設定でトークンを生成する<br />
 	... アプリの名前: `Mastodon on Email`<br />
 	... アプリのウェブサイト: `https://genbuhase.github.io/`<br />
 	... アクセス権: `read, write, follow`<br />
-	![トークン設定](images/002.png)
+	![トークン設定](assets/images/002.png)
 
 3.	[ファイル]タブ内の[プロジェクトのプロパティ]を開く<br />
-	![プロジェクトのプロパティ](images/003.png)
+	![プロジェクトのプロパティ](assets/images/003.png)
 
 4.	[ユーザープロパティ]タブにインスタンス及びトークン情報を追記<br />
-	![ユーザープロパティ](images/004.png)
+	![ユーザープロパティ](assets/images/004.png)
 
 
 ## フォーマット表

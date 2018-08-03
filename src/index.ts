@@ -1,0 +1,1 @@
+const NPM: Number = 2;
