@@ -1,1 +1,1 @@
-const NPM: Number = 2;
+import { Mastodon, MoEClient } from "./Mastodon";
