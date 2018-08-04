@@ -1,12 +1,29 @@
 /**
+ * See https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#posting-a-new-status
+ */
+interface TootOptions {
+	status: string;
+	in_reply_to_id?: number;
+	media_ids?: Array<number>;
+	sensitive?: boolean;
+	spoiler_text?: string;
+	visibility?: "public" | "unlisted" | "private" | "direct" | string;
+	language?: string;
+}
+
+
+
+/**
  * Mastodonインスタンスとの通信を行うクラス
  * @author Genbu Hase
  */
 export class Mastodon {
+	/** @param instance Mastodonインスタンスのドメイン(ex: itabashi.0j0.jp) */
 	public constructor (public instance: string) {
 		this.token = UserProperties.getProperty(instance);
 	}
 
+	/** インスタンスと紐付けられたトークン */
 	public token: string;
 
 	public get (apiUrl: string, params: Array<[ string, string ]> = []): GoogleAppsScript.URL_Fetch.HTTPResponse {
@@ -92,17 +109,4 @@ export class MoEClient extends Mastodon {
 
 		return this.post("api/v1/statuses", options);
 	}
-}
-
-/**
- * See https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#posting-a-new-status
- */
-interface TootOptions {
-	status: string;
-	in_reply_to_id?: number;
-	media_ids?: Array<number>;
-	sensitive?: boolean;
-	spoiler_text?: string;
-	visibility?: "public" | "unlisted" | "private" | "direct" | string;
-	language?: string;
 }
