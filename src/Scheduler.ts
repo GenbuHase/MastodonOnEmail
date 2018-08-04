@@ -2,7 +2,7 @@ export class Scheduler {
 	/** Work Per Minutes */
 	private static readonly WPM: number = 2;
 
-	public scheduleInit (): void {
+	public static scheduleInit (): void {
 		const { WPM } = Scheduler;
 
 		const scheduleAt: Date = new Date();
@@ -21,15 +21,32 @@ export class Scheduler {
 		}
 	}
 
-	public scheduleEnd (): void {
+	public static scheduleEnd (): void {
 		const triggers: Array<GoogleAppsScript.Script.Trigger> = ScriptApp.getProjectTriggers();
 		for (const trigger of triggers) {
 			if (trigger.getHandlerFunction() === "run") ScriptApp.deleteTrigger(trigger);
+		}
+	}
+
+	public static _schedule (): void { ScriptApp.newTrigger("run").timeBased().everyMinutes(1).create(); }
+
+	public static _scheduleClear (): void {
+		const triggers: Array<GoogleAppsScript.Script.Trigger> = ScriptApp.getProjectTriggers();
+		for (const trigger of triggers) {
+			switch (trigger.getHandlerFunction()) {
+				case "_schedule":
+				case "_scheduleClear":
+					ScriptApp.deleteTrigger(trigger);
+					break;
+			}
 		}
 	}
 }
 
 
 
-function launch (): void { return new Scheduler().scheduleInit(); }
-function dismiss (): void { return new Scheduler().scheduleEnd(); }
+function launch (): void { Scheduler.scheduleInit(); }
+function dismiss (): void { Scheduler.scheduleEnd(); }
+
+function _schedule (): void { Scheduler._schedule(); }
+function _scheduleClear (): void { Scheduler._scheduleClear(); }
