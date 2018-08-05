@@ -167,7 +167,7 @@ export class MoEClientHelp {
 	 */
 	public static isFeatureRegistered (feature: string): boolean {
 		const localization: MoEClientHelp.I18nItem = this.I18n[this.defaultLanguage];
-		return localization.details[feature.toUpperCase()] ? true : false;
+		return localization.details[feature] ? true : false;
 	}
 }
 
