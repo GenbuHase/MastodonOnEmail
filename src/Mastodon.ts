@@ -1,32 +1,10 @@
 /**
- * See https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#posting-a-new-status
- */
-interface TootOptions {
-	status: string;
-	in_reply_to_id?: number;
-	media_ids?: number[];
-	sensitive?: boolean;
-	spoiler_text?: string;
-	visibility?: TootVisibility[0 | 1 | 2 | 3] | string;
-	language?: string;
-}
-
-interface TootVisibility {
-	[0]: "public";
-	[1]: "unlisted";
-	[2]: "private";
-	[3]: "direct";
-}
-
-
-
-/**
  * Mastodonインスタンスとの通信を行うクラス
  * @author Genbu Hase
  */
 export class Mastodon {
 	/** 標準実装されているトゥートの公開範囲 */
-	public static readonly TootVisibility: TootVisibility;
+	public static readonly Visibilities: Mastodon.TootVisibility;
 
 
 
@@ -89,57 +67,19 @@ export class Mastodon {
 	}
 }
 
-
-
-/**
- * Mastodon on Emailのクライエントクラス
- * 
- * @extends Mastodon
- * @author Genbu Hase
- */
-export class MoEClient extends Mastodon {
-	public static readonly SubjectMatcher = /MoE(:[^@<>]+(?=@))?@([^<>]*)(?:<(.+)>)?/;
-
-	public static readonly MagicMatcher = {
-		CW: /\[CW ?\| ?(.+)\]\r?\n/i,
-		Emoji: /\[(:[^:]+:) ?\| ?([^\]]+)\]/
-	};
-
-	public static readonly Utils = class MoEClientUtils {
-		public static parseHtml (htmlStr: string): string {
-			return htmlStr
-				.replace(/(<\/p>)/g, "$1\n\n")
-				.replace(/<br ?\/?>/g, "\n")
-				.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, "")
-				.slice(0, -2);
-		}
-	};
-
-
-
-	public constructor (public instance: string) { super(instance); }
-
-	public toot (text: TootOptions["status"], visibility: TootOptions["visibility"]): GoogleAppsScript.URL_Fetch.HTTPResponse {
-		const cw: RegExpMatchArray = text.match(MoEClient.MagicMatcher.CW) || [""];
-		text = text.replace(cw[0], "");
-
-		const emojis: RegExpMatchArray = text.match(new RegExp(MoEClient.MagicMatcher.Emoji.source, "g")) || [];
-		emojis.forEach(emojiStr => {
-			const emoji: RegExpMatchArray = emojiStr.match(MoEClient.MagicMatcher.Emoji);
-			text = text.replace(emoji[0], `${emoji[1]} `.repeat(parseInt(emoji[2], 10)));
-		});
-
-		const options: TootOptions = {
-			status: [
-				text,
-				"",
-				"from #MoE",
-				"#MastodonOnEmail"
-			].join("\r\n"),
-
-			visibility
-		};
-
-		return this.post("api/v1/statuses", options);
+export namespace Mastodon {
+	/**
+	 * See https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#posting-a-new-status
+	 */
+	export interface TootOptions {
+		status: string;
+		in_reply_to_id?: number;
+		media_ids?: number[];
+		sensitive?: boolean;
+		spoiler_text?: string;
+		visibility?: TootVisibility[number] | string;
+		language?: string;
 	}
+
+	export type TootVisibility = ["public", "unlisted", "private", "direct"];
 }
