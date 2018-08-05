@@ -25,7 +25,7 @@ function main (): void {
 					break;
 	
 				case ":HELP":
-					client.Help.send(mail.getFrom(), help_language, help_feature);
+					client.Help.send(mail.getFrom(), help_language, help_feature.toUpperCase());
 					break;
 			}
 
