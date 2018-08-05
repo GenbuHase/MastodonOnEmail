@@ -7,8 +7,15 @@ interface TootOptions {
 	media_ids?: number[];
 	sensitive?: boolean;
 	spoiler_text?: string;
-	visibility?: "public" | "unlisted" | "private" | "direct" | string;
+	visibility?: TootVisibility[0 | 1 | 2 | 3] | string;
 	language?: string;
+}
+
+interface TootVisibility {
+	[0]: "public";
+	[1]: "unlisted";
+	[2]: "private";
+	[3]: "direct";
 }
 
 
@@ -18,6 +25,11 @@ interface TootOptions {
  * @author Genbu Hase
  */
 export class Mastodon {
+	/** 標準実装されているトゥートの公開範囲 */
+	public static readonly TootVisibility: TootVisibility;
+
+
+
 	/** @param instance Mastodonインスタンスのドメイン (ex: itabashi.0j0.jp) */
 	public constructor (public instance: string) {
 		this.token = UserProperties.getProperty(instance);
