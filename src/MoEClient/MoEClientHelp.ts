@@ -138,24 +138,6 @@ export class MoEClientHelp {
 	};
 
 	/**
-	 * 指定のアドレスにMoEの仕様書を送信します
-	 * 
-	 * @param to 宛先アドレス
-	 * @param language 仕様書の言語
-	 * @param feature 詳細情報を得たい機能名
-	 */
-	public static send (to: string, language: string, feature: string): void {
-		const { I18n } = this;
-
-		if (feature && this.isFeatureRegistered(feature)) {
-			GmailApp.sendEmail(to, I18n[language].subject, I18n[language].details[feature].join("\n"));
-			return;
-		}
-
-		GmailApp.sendEmail(to, I18n[language].subject, I18n[language].overview.join("\n"));
-	}
-
-	/**
 	 * 指定された言語が登録されているかどうかを返します
 	 * @param language 仕様書の言語
 	 */
@@ -168,6 +150,26 @@ export class MoEClientHelp {
 	public static isFeatureRegistered (feature: string): boolean {
 		const localization: MoEClientHelp.I18nItem = this.I18n[this.defaultLanguage];
 		return localization.details[feature] ? true : false;
+	}
+
+	/**
+	 * 指定のアドレスにMoEの仕様書を送信します
+	 * 
+	 * @param to 宛先アドレス
+	 * @param language 仕様書の言語
+	 * @param feature 詳細情報を得たい機能名
+	 */
+	public static send (to: string, language: string, feature?: string): void {
+		if (typeof feature === "string") feature = feature.toUpperCase();
+
+		const { I18n } = this;
+		
+		if (feature && this.isFeatureRegistered(feature)) {
+			GmailApp.sendEmail(to, I18n[language].subject, I18n[language].details[feature].join("\n"));
+			return;
+		}
+
+		GmailApp.sendEmail(to, I18n[language].subject, I18n[language].overview.join("\n"));
 	}
 }
 
