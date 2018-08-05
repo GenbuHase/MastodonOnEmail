@@ -42,7 +42,7 @@ export class MoEClient extends Mastodon {
 				"",
 				"from #MoE",
 				"#MastodonOnEmail"
-			].join("\r\n"),
+			].join("\n"),
 
 			visibility
 		};
