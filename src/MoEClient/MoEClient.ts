@@ -87,7 +87,7 @@ export namespace MoEClient {
 				case ":TOOT":
 					const { Visibilities } = Mastodon;
 
-					request.toot_visibility = args[0] && (typeof args[0] === "number" ? Visibilities[args[0]] : args[0]) || Visibilities[0];
+					request.toot_visibility = args[0] && (!isNaN(parseInt(args[0], 10)) ? Visibilities[parseInt(args[0], 10)] : args[0]) || Visibilities[0];
 					break;
 
 				case ":NOTIFY":
