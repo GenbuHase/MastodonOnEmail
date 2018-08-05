@@ -23,23 +23,23 @@ export class Scheduler {
 
 	public static scheduleEnd (): void {
 		const triggers: Array<GoogleAppsScript.Script.Trigger> = ScriptApp.getProjectTriggers();
-		for (const trigger of triggers) {
+		triggers.forEach(trigger => {
 			if (trigger.getHandlerFunction() === "run") ScriptApp.deleteTrigger(trigger);
-		}
+		});
 	}
 
 	public static _schedule (): void { ScriptApp.newTrigger("run").timeBased().everyMinutes(1).create(); }
 
 	public static _scheduleClear (): void {
 		const triggers: Array<GoogleAppsScript.Script.Trigger> = ScriptApp.getProjectTriggers();
-		for (const trigger of triggers) {
+		triggers.forEach(trigger => {
 			switch (trigger.getHandlerFunction()) {
 				case "_schedule":
 				case "_scheduleClear":
 					ScriptApp.deleteTrigger(trigger);
 					break;
 			}
-		}
+		});
 	}
 }
 
