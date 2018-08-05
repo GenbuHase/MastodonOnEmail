@@ -4,7 +4,7 @@
  */
 export class Mastodon {
 	/** 標準実装されているトゥートの公開範囲 */
-	public static readonly Visibilities: Mastodon.TootVisibility;
+	public static readonly Visibilities: Mastodon.TootVisibility = ["public", "unlisted", "private", "direct"];
 
 
 
