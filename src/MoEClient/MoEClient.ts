@@ -98,7 +98,7 @@ export namespace MoEClient {
 					const { defaultLanguage } = MoEClientHelp;
 
 					request.help_language = args[0] && (MoEClientHelp.isLangRegistered(args[0]) && args[0]) || defaultLanguage;
-					request.help_feature = args[1] && (MoEClientHelp.isFeatureRegistered(args[1]) && args[1]) || null;
+					request.help_feature = args[1] && (MoEClientHelp.isFeatureRegistered(args[1].toUpperCase()) && args[1].toUpperCase()) || null;
 					break;
 			}
 
