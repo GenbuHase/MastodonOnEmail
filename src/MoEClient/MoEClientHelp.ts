@@ -160,8 +160,6 @@ export class MoEClientHelp {
 	 * @param feature 詳細情報を得たい機能名
 	 */
 	public static send (to: string, language: string, feature?: string): void {
-		if (typeof feature === "string") feature = feature.toUpperCase();
-
 		const { I18n } = this;
 		
 		if (feature && this.isFeatureRegistered(feature)) {
