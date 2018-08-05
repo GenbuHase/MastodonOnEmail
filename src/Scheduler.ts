@@ -22,7 +22,7 @@ export class Scheduler {
 	}
 
 	public static scheduleEnd (): void {
-		const triggers: Array<GoogleAppsScript.Script.Trigger> = ScriptApp.getProjectTriggers();
+		const triggers: GoogleAppsScript.Script.Trigger[] = ScriptApp.getProjectTriggers();
 		triggers.forEach(trigger => {
 			if (trigger.getHandlerFunction() === "run") ScriptApp.deleteTrigger(trigger);
 		});
@@ -31,7 +31,7 @@ export class Scheduler {
 	public static _schedule (): void { ScriptApp.newTrigger("run").timeBased().everyMinutes(1).create(); }
 
 	public static _scheduleClear (): void {
-		const triggers: Array<GoogleAppsScript.Script.Trigger> = ScriptApp.getProjectTriggers();
+		const triggers: GoogleAppsScript.Script.Trigger[] = ScriptApp.getProjectTriggers();
 		triggers.forEach(trigger => {
 			switch (trigger.getHandlerFunction()) {
 				case "_schedule":
