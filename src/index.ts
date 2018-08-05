@@ -1,11 +1,13 @@
 import { Mastodon, MoEClient } from "./Mastodon";
+import { Scheduler } from "./Scheduler";
 
 
 
-function run (): void {
+function main (): void {
 	const threads: GoogleAppsScript.Gmail.GmailThread[] = GmailApp.search(`-in:(trash) is:(unread) subject:(${MoEClient.SubjectMatcher})`);
 	threads.forEach(thread => {
 		const subject: RegExpMatchArray = thread.getFirstMessageSubject().match(MoEClient.SubjectMatcher);
+
 		if (!subject) return;
 
 		const mode: string = (subject[1] || "").toUpperCase();
@@ -28,6 +30,9 @@ function run (): void {
 
 				case ":NOTIFY":
 					break;
+
+				case ":HELP":
+					break;
 			}
 
 			mail.markRead();
@@ -35,3 +40,8 @@ function run (): void {
 		});
 	});
 }
+
+
+
+function launch (): void { Scheduler.scheduleInit(); }
+function dismiss (): void { Scheduler.scheduleEnd(); }
