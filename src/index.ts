@@ -18,7 +18,7 @@ function main (): void {
 			switch (feature) {
 				default:
 				case ":TOOT":
-					client.toot(mail.getPlainBody(), toot_visibility);
+					client.Toot.toot(mail.getPlainBody(), toot_visibility);
 					break;
 	
 				case ":NOTIFY":
