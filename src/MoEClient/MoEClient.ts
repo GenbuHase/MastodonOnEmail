@@ -43,7 +43,7 @@ export namespace MoEClient {
 		/** For Toot mode */
 		toot_visibility?: Mastodon.Statuses.TootPayload["visibility"];
 		/** For Notify mode */
-		notify_types?: string[];
+		notify_types?: Mastodon.Notifications.GetListParams["exclude_types[]"];
 		/** For Help mode */
 		help_language?: string;
 		help_feature?: MoERequest["feature"];
@@ -74,9 +74,9 @@ export namespace MoEClient {
 					break;
 
 				case ":NOTIFY":
-					const { NotificationTypes } = MoEClientNotify;
+					const { Types } = MoEClientNotify;
 
-					request.notify_types = args && (args.every(type => NotificationTypes.includes(type)) && args) || ["mention"];
+					request.notify_types = args && ((args as Mastodon.Notifications.NotificationTypes[number][]).every(type => Types.includes(type)) && args) || ["mention"];
 					break;
 
 				case ":HELP":

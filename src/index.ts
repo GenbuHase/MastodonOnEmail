@@ -7,7 +7,7 @@ function main (): void {
 	const threads: GoogleAppsScript.Gmail.GmailThread[] = GmailApp.search(`-in:(trash) is:(unread) subject:(${MoEClient.SubjectMatcher})`);
 	threads.forEach(thread => {
 		const request: MoEClient.MoERequest = MoEClient.Utils.getRequest(thread.getFirstMessageSubject());
-		const { feature, instance, toot_visibility, help_language, help_feature } = request;
+		const { feature, instance, toot_visibility, notify_types, help_language, help_feature } = request;
 
 		const client: MoEClient = new MoEClient(instance);
 
@@ -22,7 +22,7 @@ function main (): void {
 					break;
 	
 				case ":NOTIFY":
-					client.Notify.send(mail.getFrom());
+					client.Notify.send(mail.getFrom(), notify_types);
 					break;
 	
 				case ":HELP":

@@ -4,7 +4,7 @@ import { MoEClient } from "./MoEClient";
 
 
 export class MoEClientNotify {
-	public static readonly NotificationTypes: Mastodon.Notifications.NotificationTypes = ["follow", "favourite", "reblog", "mention"];
+	public static readonly Types: Mastodon.Notifications.NotificationTypes = ["follow", "favourite", "reblog", "mention"];
 
 
 
@@ -14,8 +14,8 @@ export class MoEClientNotify {
 	 * 通知を取得して返します
 	 * @param types 取得したい通知の種類
 	 */
-	private getNotifications (types: Mastodon.Notifications.NotificationTypes[number][] = ["mention"]): Mastodon.Notifications.Notification[] {
-		let excludeTypes: Mastodon.Notifications.NotificationTypes[number][] = MoEClientNotify.NotificationTypes;
+	private getNotifications (types: Mastodon.Notifications.Notification["type"][] = ["mention"]): Mastodon.Notifications.Notification[] {
+		let excludeTypes: Mastodon.Notifications.Notification["type"][] = MoEClientNotify.Types;
 		types.forEach(type => excludeTypes = excludeTypes.filter(included => included !== type));
 
 		const params: Mastodon.Notifications.GetListParams = {
@@ -29,10 +29,10 @@ export class MoEClientNotify {
 	 * 指定のアドレスに通知情報を送信します
 	 * @param to 宛先アドレス
 	 */
-	public send (to: string): void {
+	public send (to: string, types: Mastodon.Notifications.GetListParams["exclude_types[]"]): void {
 		const messages: string[] = [];
 
-		const notifications: Mastodon.Notifications.Notification[] = this.getNotifications();
+		const notifications: Mastodon.Notifications.Notification[] = this.getNotifications(types);
 		notifications.forEach(mention => {
 			messages.push([
 				`<${new Date(mention.created_at).toLocaleString()}> ${mention.account.acct}`,
