@@ -137,7 +137,7 @@ export namespace Mastodon {
 		/** See https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#notification */
 		export type Notification = {
 			id: number;
-			type: NotificationTypes[number];
+			type: NotificationTypes[number] | string;
 			created_at: number;
 			account: Accounts.Account;
 			status?: Statuses.Status
