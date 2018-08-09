@@ -3,11 +3,6 @@
  * @author Genbu Hase
  */
 export class Mastodon {
-	/** 標準実装されているトゥートの公開範囲 */
-	public static readonly Visibilities: Mastodon.TootVisibility = ["public", "unlisted", "private", "direct"];
-
-
-
 	/** @param instance Mastodonインスタンスのドメイン (ex: itabashi.0j0.jp) */
 	public constructor (public instance: string) {
 		this.token = UserProperties.getProperty(instance);
@@ -68,18 +63,73 @@ export class Mastodon {
 }
 
 export namespace Mastodon {
-	/**
-	 * See https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#posting-a-new-status
-	 */
-	export interface TootOptions {
-		status: string;
-		in_reply_to_id?: number;
-		media_ids?: number[];
-		sensitive?: boolean;
-		spoiler_text?: string;
-		visibility?: TootVisibility[number] | string;
-		language?: string;
+	export namespace Statuses {
+		/** See https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#status */
+		export type Status = {
+			id: number;
+			uri: string;
+			url?: string;
+			account: object;
+			in_reply_to_id?: number;
+			in_reply_to_account_id?: number;
+			reblog?: Status;
+			content: string;
+			created_at: number;
+			emojis: object[];
+			reblogs_count: number;
+			favourites_count: number;
+			reblogged?: boolean;
+			favourited?: boolean;
+			muted?: boolean;
+			sensitive: boolean;
+			spoiler_text: string;
+			visibility: StatusVisibility[number] | string;
+			media_attachments: object[];
+			mentions: object[];
+			tags: object[];
+			application?: object;
+			language?: string;
+			pinned: boolean;
+		};
+
+		/** 標準実装されているトゥートの公開範囲 */
+		export type StatusVisibility = ["public", "unlisted", "private", "direct"];
+
+
+
+		/** See https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#posting-a-new-status */
+		export type TootPayload = {
+			status: string;
+			in_reply_to_id?: Status["in_reply_to_id"];
+			media_ids?: number[];
+			sensitive?: Status["sensitive"];
+			spoiler_text?: Status["spoiler_text"];
+			visibility?: Status["visibility"];
+			language?: string;
+		};
 	}
 
-	export type TootVisibility = ["public", "unlisted", "private", "direct"];
+	export namespace Notifications {
+		/** See https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#notification */
+		export type Notification = {
+			id: number;
+			type: NotificationTypes[number];
+			created_at: number;
+			account: object;
+			status?: Statuses.Status
+		};
+
+		/** 標準実装されている通知の種類 */
+		export type NotificationTypes = ["follow", "favourite", "reblog", "mention"];
+
+
+
+		/** See https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#fetching-a-users-notifications */
+		export type GetListParams = {
+			max_id?: number;
+			since_id?: number;
+			limit?: number;
+			"exclude_types[]"?: Notification["type"][];
+		};
+	}
 }

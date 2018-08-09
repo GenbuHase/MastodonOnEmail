@@ -1,4 +1,6 @@
 import { Mastodon } from "../Mastodon";
+import { MoEClientToot } from "./MoEClientToot";
+import { MoEClientNotify } from "./MoEClientNotify";
 import { MoEClientHelp } from "./MoEClientHelp";
 
 
@@ -23,54 +25,35 @@ export class MoEClient extends Mastodon {
 
 	public constructor (public instance: string) { super(instance); }
 
-	public readonly Help = MoEClientHelp;
-
-	/** 紐付けられたインスタンスにトゥートします */
-	public toot (text: Mastodon.TootOptions["status"], visibility: Mastodon.TootOptions["visibility"]): GoogleAppsScript.URL_Fetch.HTTPResponse {
-		const cw: RegExpMatchArray = text.match(MoEClient.MagicMatcher.CW) || [""];
-		text = text.replace(cw[0], "");
-
-		const emojis: RegExpMatchArray = text.match(new RegExp(MoEClient.MagicMatcher.Emoji.source, "g")) || [];
-		emojis.forEach(emojiStr => {
-			const emoji: RegExpMatchArray = emojiStr.match(MoEClient.MagicMatcher.Emoji);
-			text = text.replace(emoji[0], `${emoji[1]} `.repeat(parseInt(emoji[2], 10)));
-		});
-
-		const options: Mastodon.TootOptions = {
-			status: [
-				text,
-				"",
-				"from #MoE",
-				"#MastodonOnEmail"
-			].join("\n"),
-
-			visibility
-		};
-
-		return this.post("api/v1/statuses", options);
-	}
+	public readonly Help = new MoEClientHelp(this);
+	public readonly Notify = new MoEClientNotify(this);
+	public readonly Toot = new MoEClientToot(this);
 }
 
 export namespace MoEClient {
+	/** MoEで定義済みの機能 */
 	export type MoEFeatures = [":Toot", ":Notify", ":Help"];
 
-	/** MoEへのリクエスト */
-	export interface MoERequest {
+	/** MoEのリクエスト形式 */
+	export type MoERequest = {
 		feature: MoEFeatures[number] | string;
 		args: string[];
 		instance: string;
 
 		/** For Toot mode */
-		toot_visibility?: Mastodon.TootOptions["visibility"];
+		toot_visibility?: Mastodon.Statuses.TootPayload["visibility"];
 		/** For Notify mode */
 		notify_types?: string[];
 		/** For Help mode */
 		help_language?: string;
 		help_feature?: MoERequest["feature"];
-	}
+	};
 
 	export class Utils {
-		/** メールの件名からMoEリクエストに変換したものを返します */
+		/**
+		 * メールの件名からMoEリクエストに変換したものを返します
+		 * @param subjectStr メール件名
+		 */
 		public static getRequest (subjectStr: string): MoERequest {
 			const subject: RegExpMatchArray = subjectStr.match(MoEClient.SubjectMatcher) || [];
 			
@@ -85,13 +68,13 @@ export namespace MoEClient {
 			switch (feature) {
 				default:
 				case ":TOOT":
-					const { Visibilities } = Mastodon;
+					const { Visibility } = MoEClientToot;
 
-					request.toot_visibility = args[0] && (!isNaN(parseInt(args[0], 10)) ? Visibilities[parseInt(args[0], 10)] : args[0]) || Visibilities[0];
+					request.toot_visibility = args[0] && (!isNaN(parseInt(args[0], 10)) ? Visibility[parseInt(args[0], 10)] : args[0]) || Visibility[0];
 					break;
 
 				case ":NOTIFY":
-
+					
 					break;
 
 				case ":HELP":
@@ -105,7 +88,10 @@ export namespace MoEClient {
 			return request;
 		}
 
-		/** HTML形式の文字列をパースして、生の文字列にして返します */
+		/**
+		 * HTML形式の文字列をパースし、生の文字列にして返します
+		 * @param htmlStr HTML形式の文字列
+		 */
 		public static parseHtml (htmlStr: string): string {
 			return htmlStr
 				.replace(/(<\/p>)/g, "$1\n\n")
