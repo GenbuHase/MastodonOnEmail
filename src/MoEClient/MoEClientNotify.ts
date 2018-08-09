@@ -14,7 +14,7 @@ export class MoEClientNotify {
 	 * 通知を取得して返します
 	 * @param types 取得したい通知の種類
 	 */
-	private getNotifications (...types: Mastodon.Notifications.NotificationTypes[number][]): Mastodon.Notifications.Notification[] {
+	private getNotifications (types: Mastodon.Notifications.NotificationTypes[number][] = ["mention"]): Mastodon.Notifications.Notification[] {
 		let excludeTypes: Mastodon.Notifications.NotificationTypes[number][] = MoEClientNotify.NotificationTypes;
 		types.forEach(type => excludeTypes = excludeTypes.filter(included => included !== type));
 

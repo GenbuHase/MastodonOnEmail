@@ -63,13 +63,37 @@ export class Mastodon {
 }
 
 export namespace Mastodon {
+	export namespace Accounts {
+		/** See https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#account */
+		export type Account = {
+			id: number;
+			username: string;
+			acct: string;
+			display_name: string;
+			locked: boolean;
+			created_at: number;
+			followers_count: number;
+			following_count: number;
+			statuses_count: number;
+			note: string;
+			url: string;
+			avatar: string;
+			avatar_static: string;
+			header: string;
+			header_static: string;
+			moved?: Account;
+			fields?: object[];
+			bot?: boolean;
+		};
+	}
+
 	export namespace Statuses {
 		/** See https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#status */
 		export type Status = {
 			id: number;
 			uri: string;
 			url?: string;
-			account: object;
+			account: Accounts.Account;
 			in_reply_to_id?: number;
 			in_reply_to_account_id?: number;
 			reblog?: Status;
@@ -115,7 +139,7 @@ export namespace Mastodon {
 			id: number;
 			type: NotificationTypes[number];
 			created_at: number;
-			account: object;
+			account: Accounts.Account;
 			status?: Statuses.Status
 		};
 

@@ -74,7 +74,9 @@ export namespace MoEClient {
 					break;
 
 				case ":NOTIFY":
-					
+					const { NotificationTypes } = MoEClientNotify;
+
+					request.notify_types = args && (args.every(type => NotificationTypes.includes(type)) && args) || ["mention"];
 					break;
 
 				case ":HELP":
