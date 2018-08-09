@@ -22,6 +22,7 @@ function main (): void {
 					break;
 	
 				case ":NOTIFY":
+					client.Notify.send(mail.getFrom());
 					break;
 	
 				case ":HELP":
