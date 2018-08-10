@@ -71,7 +71,7 @@ export class MoEClientNotify {
 
 				case "reblog":
 					message.push(
-						`${messageHeader} rebloged your post`,
+						`${messageHeader} reblogged your post`,
 						tootContent
 					);
 					break;
