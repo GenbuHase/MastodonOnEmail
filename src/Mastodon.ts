@@ -37,7 +37,7 @@ export class Mastodon {
 			}
 		}
 
-		return UrlFetchApp.fetch(`https://${this.instance}/${apiUrl}${params.length ? `?${paramStrs.join("&")}`: ""}`, options);
+		return UrlFetchApp.fetch(`https://${this.instance}/${apiUrl}${paramStrs.length ? `?${paramStrs.join("&")}`: ""}`, options);
 	}
 
 	/**
