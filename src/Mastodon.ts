@@ -106,7 +106,7 @@ export namespace Mastodon {
 			muted?: boolean;
 			sensitive: boolean;
 			spoiler_text: string;
-			visibility: StatusVisibility[number] | string;
+			visibility: StatusVisibility[number];
 			media_attachments: object[];
 			mentions: object[];
 			tags: object[];
@@ -136,14 +136,14 @@ export namespace Mastodon {
 		/** See https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#notification */
 		export type Notification = {
 			id: number;
-			type: NotificationTypes[number] | string;
+			type: NotificationType[number];
 			created_at: number;
 			account: Accounts.Account;
 			status?: Statuses.Status
 		};
 
 		/** 標準実装されている通知の種類 */
-		export type NotificationTypes = ["follow", "favourite", "reblog", "mention"];
+		export type NotificationType = ["follow", "favourite", "reblog", "mention"];
 
 
 

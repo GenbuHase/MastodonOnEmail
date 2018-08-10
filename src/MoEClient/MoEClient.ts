@@ -69,14 +69,14 @@ export namespace MoEClient {
 				default:
 				case ":TOOT":
 					const { Visibility } = MoEClientToot;
-
-					request.toot_visibility = args[0] && (!isNaN(parseInt(args[0], 10)) ? Visibility[parseInt(args[0], 10)] : args[0]) || Visibility[0];
+					
+					request.toot_visibility = args[0] && (!isNaN(parseInt(args[0], 10)) ? Visibility[parseInt(args[0], 10)] : (args[0] as Mastodon.Statuses.StatusVisibility[number])) || Visibility[0];
 					break;
 
 				case ":NOTIFY":
 					const { Types } = MoEClientNotify;
 
-					request.notify_types = args && (args as Mastodon.Notifications.NotificationTypes[number][]).filter(type => -1 < Types.indexOf(type)) || ["mention"];
+					request.notify_types = args && (args as Mastodon.Notifications.NotificationType[number][]).filter(type => -1 < Types.indexOf(type)) || ["mention"];
 					break;
 
 				case ":HELP":
