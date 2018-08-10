@@ -76,7 +76,7 @@ export namespace MoEClient {
 				case ":NOTIFY":
 					const { Types } = MoEClientNotify;
 
-					request.notify_types = args && ((args as Mastodon.Notifications.NotificationTypes[number][]).every(type => Types.includes(type)) && args) || ["mention"];
+					request.notify_types = args && (args as Mastodon.Notifications.NotificationTypes[number][]).filter(type => -1 < Types.indexOf(type)) || ["mention"];
 					break;
 
 				case ":HELP":
