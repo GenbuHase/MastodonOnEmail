@@ -4,7 +4,7 @@ import { MoEClient } from "./MoEClient";
 
 
 export class MoEClientNotify {
-	public static readonly Types: Mastodon.Notifications.NotificationTypes = ["follow", "favourite", "reblog", "mention"];
+	public static readonly Types: Mastodon.Notifications.NotificationType = ["follow", "favourite", "reblog", "mention"];
 
 
 
@@ -33,11 +33,23 @@ export class MoEClientNotify {
 		const messages: string[] = [];
 
 		const notifications: Mastodon.Notifications.Notification[] = this.getNotifications(types);
-		notifications.forEach(mention => {
-			messages.push([
-				`<${new Date(mention.created_at).toLocaleString()}> ${mention.account.acct}`,
-				MoEClient.Utils.parseHtml(mention.status.content)
-			].join("\n"));
+		notifications.forEach(notification => {
+			const createdAt: String = new Date(notification.created_at).toLocaleString();
+			const notifier: String = notification.account.acct;
+
+			switch (notification.type) {
+				default:
+					return messages.push([
+						`<${createdAt}> ${notifier}`,
+						MoEClient.Utils.parseHtml(notification.status.content)
+					].join("\n"));
+
+				case "follow":
+					return messages.push([
+						`<${createdAt}> ${notifier}`,
+						`${notifier} has followed you`
+					].join("\n"));
+			}
 		});
 
 		GmailApp.sendEmail(to, `[MoE] ${this.client.instance}の通知情報`, messages.join("\n"));
