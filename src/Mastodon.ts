@@ -32,13 +32,12 @@ export class Mastodon {
 
 			if (Array.isArray(param)) {
 				param.forEach(prop => paramStrs.push(`${name}=${prop}`));
-				return;
+			} else {
+				paramStrs.push(`${name}=${param}`);
 			}
-
-			paramStrs.push(`${name}=${param}`);
 		}
 
-		return UrlFetchApp.fetch(`https://${this.instance}/${apiUrl}${paramStrs.length ? `?${paramStrs.join("&")}`: ""}`, options);
+		return UrlFetchApp.fetch(`https://${this.instance}/${apiUrl}${params.length ? `?${paramStrs.join("&")}`: ""}`, options);
 	}
 
 	/**
