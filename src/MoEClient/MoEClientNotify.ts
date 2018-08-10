@@ -36,23 +36,51 @@ export class MoEClientNotify {
 		notifications.forEach(notification => {
 			const createdAt: String = new Date(notification.created_at).toLocaleString();
 			const notifier: String = notification.account.acct;
+			const tootContent: string = MoEClient.Utils.parseHtml(notification.status && notification.status.content || "");
+			
+			const messageHeader: string = `<${createdAt}> ${notifier}`;
+			let message: string[] = [];
 
 			switch (notification.type) {
 				default:
-					return messages.push([
-						`<${createdAt}> ${notifier}`,
-						MoEClient.Utils.parseHtml(notification.status.content)
-					].join("\n"));
+					message.push(
+						messageHeader,
+						tootContent
+					);
+					break;
+					
+				case "favourite":
+					message.push(
+						`${messageHeader} liked your post`,
+						tootContent
+					);
+					break;
 
 				case "follow":
-					return messages.push([
-						`<${createdAt}> ${notifier}`,
-						`${notifier} has followed you`
-					].join("\n"));
+					message.push(
+						`${messageHeader} has followed you`
+					);
+					break;
+
+				case "mention":
+					message.push(
+						`${messageHeader} mentioned you`,
+						tootContent
+					);
+					break;
+
+				case "reblog":
+					message.push(
+						`${messageHeader} rebloged your post`,
+						tootContent
+					);
+					break;
 			}
+
+			messages.push(message.join("\n"));
 		});
 
-		GmailApp.sendEmail(to, `[MoE] ${this.client.instance}の通知情報`, messages.join("\n"));
+		GmailApp.sendEmail(to, `[MoE] ${this.client.instance}の通知情報`, messages.join("\n\n"));
 	}
 }
 
