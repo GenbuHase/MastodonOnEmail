@@ -3,6 +3,11 @@ import { Scheduler } from "./Scheduler";
 
 
 
+function launch (): void { Scheduler.scheduleInit(); }
+function dismiss (): void { Scheduler.scheduleEnd(); }
+
+
+
 function main (): void {
 	const threads: GoogleAppsScript.Gmail.GmailThread[] = GmailApp.search(`-in:(trash) is:(unread) subject:(${MoEClient.SubjectMatcher})`);
 	threads.forEach(thread => {
@@ -35,8 +40,3 @@ function main (): void {
 		});
 	});
 }
-
-
-
-function launch (): void { Scheduler.scheduleInit(); }
-function dismiss (): void { Scheduler.scheduleEnd(); }
