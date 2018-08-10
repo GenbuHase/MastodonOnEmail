@@ -38,7 +38,7 @@ export class MoEClientNotify {
 			const notifier: String = notification.account.acct;
 			const tootContent: string = MoEClient.Utils.parseHtml(notification.status && notification.status.content || "");
 			
-			const messageHeader: string = `<${createdAt}> ${notifier}`;
+			const messageHeader: string = `[${notification.type} | ${createdAt}] ${notifier}`;
 			let message: string[] = [];
 
 			switch (notification.type) {
