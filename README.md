@@ -8,26 +8,20 @@ A tool for enjoying Mastodon on Email
 
 ## Description
 MoE helps you toot with only e-mail.<br />
-It is espicially useful for users who don't have any smartphones.
-
-
-## Features
-* Adds instances to use
-* Adjusts status privacy
-* Uses some features such as CW in body
-* Handles your account
+It is quite useful for users who don't have any smartphones.
 
 
 ## Requirement
-* [Google Apps Script](https://www.google.com/script/start/)
+* [Google Apps Script](https://www.google.com/script/start)
+* [clasp](https://github.com/google/clasp)
 
 
 ## Usage
-Please follow the instructions if you want to use.
+Please follow the instructions.
 1.	Copy all files to your GAS project
-2.	Prepare any tokens to handle(See [Token Settings](#token-settings))
-3.	Launch `scheduleInit()`
-4.	Make me busy by sending e-mails!(See [Format List](#format-list) & [Magic List](#magic-list))
+2.	Prepare any tokens to handle your account(See [Token Settings](#token-settings))
+3.	Launch `launch()`
+4.	Make me busy by sending a lot of e-mails!(See [Subject Format](#subject-format) & [Magics](#magics))
 
 
 ## Token Settings
@@ -47,35 +41,37 @@ Please follow the instructions if you want to use.
 	![Where "User Properties" is](assets/images/004.png)
 
 
-## Format List
-A base format of MoE is `MoE@{:instance}`.
-> `{:instance}` ... An instance you've connected with MoE
+## Subject Format
+A base format of MoE is `MoE{:feature?}<{:args?}>@{:instance}`.
+> `{:feature?}` ... A name of feature<br />
+> `{:instance}` ... An instance you've connected with MoE<br />
+> `{:args?}` ... Arguments of each features
 
 These are examples of format-list.
-> `MoE:Toot` ... Equals to `MoE:Toot@{:instance}`
-> 
-> `<1>` ... Equals to `MoE@{:instance}<1>`
-> 
-> `MoE:Toot<1>` ... Equals to `MoE:Toot@{:instance}<1>`
+> `MoE:Toot` ... Equals to `MoE:Toot@{:instance}`<br />
+> `<1>` ... Equals to `MoE<1>@{:instance}`<br />
+> `MoE:Toot<1>` ... Equals to `MoE:Toot<1>@{:instance}`
 
 | Format of subject | Description |
 |:----------|:----------|
-| Base Format | Toots a body of the mail |
-| <`{:privacy}`> | Toots with selected privacy |
+| Base Format | Post contents in body |
+| <`{:privacy}`> | Post with selected privacy |
 || `0` ... Public |
 || `1` ... Unlisted |
 || `2` ... Private |
 || `3` ... Direct Message |
 || `Others(public \| unlisted \| ...)` ... Provided privacy |
-| MoE:Toot | Equals to `Base Format` |
-| MoE:Toot<`{:privacy}`> | Equals to `<{:privacy}>` |
-| MoE:Notify | Notify latest 15 notifications, which are only mentions |
+| MoE:Toot | Equal to `Base Format` |
+| MoE:Toot<`{:privacy}`> | Equal to `<{:privacy}>` |
+| MoE:Notify | Send notifications to your address |
 
 
-## Magic List
+## Magics
+You can put down them in body.
+
 | Format of magic | Description |
 |:----------|:----------|
-| [CW \| `{:CWContent}`] | Toots with warning by the text |
+| [CW \| `{:CWContent}`] | Post with warning |
 | [`{:emojiCode}` \| `{:quantity}`] | Replaces with `quantity` pieces of an emoji defined as `emojiCode` |
 
 
