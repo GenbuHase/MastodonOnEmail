@@ -38,6 +38,7 @@ export class MoEClientToot {
 				"#MastodonOnEmail"
 			].join("\n"),
 
+			spoiler_text: cw[1],
 			visibility
 		};
 
